@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 디지털 패션 스타일리스트 - 가상 인플루언서의 새로운 시작</title>
+    <style>
+        /* ========== 기본 설정 ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* ========== 유틸리티 클래스 ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== 히어로 섹션 ========== */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 1;
+            transform: none;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .hero .description {
+            font-size: 1.1em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        .emoji-decoration {
+            font-size: 2.5em;
+            margin: 0 10px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .emoji-decoration:nth-child(2) { animation-delay: 0.5s; }
+        .emoji-decoration:nth-child(3) { animation-delay: 1s; }
+        .emoji-decoration:nth-child(4) { animation-delay: 1.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.6s backwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 45px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* ========== 문제 제시 섹션 ========== */
+        .problem-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: #2d3748;
+            font-weight: 700;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+
+        .problem-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .problem-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .problem-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* ========== 솔루션 섹션 ========== */
+        .solution-section {
+            background: white;
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .solution-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 35px;
+            border-radius: 25px;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .solution-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.5);
+        }
+
+        .solution-icon {
+            font-size: 5em;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .solution-card h3 {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .solution-card p {
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        /* ========== 서비스 소개 섹션 ========== */
+        .services-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .service-icon {
+            font-size: 4.5em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .service-card .short-desc {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .detail-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .detail-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 50px;
+            border-radius: 25px;
+            max-width: 700px;
+            position: relative;
+            animation: slideDown 0.4s ease;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 25px;
+            top: 25px;
+            font-size: 2em;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        .modal-content h2 {
+            font-size: 2em;
+            margin-bottom: 25px;
+            color: #2d3748;
+        }
+
+        .modal-content .overview {
+            margin-bottom: 30px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .modal-content h4 {
+            font-size: 1.3em;
+            margin: 25px 0 15px;
+            color: #667eea;
+        }
+
+        .modal-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-content ul li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .modal-content ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .modal-content .meta-info {
+            background: #f5f7fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 25px;
+        }
+
+        .modal-content .meta-info p {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        /* ========== 작동 방식 섹션 ========== */
+        .how-it-works-section {
+            background: white;
+        }
+
+        .steps-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 30px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 220px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .step h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .step p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .arrow {
+            font-size: 3em;
+            color: #667eea;
+            align-self: center;
+            margin: 0 -10px;
+        }
+
+        /* ========== 특장점 섹션 ========== */
+        .features-section {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 35px 30px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .feature-card:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .feature-icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        /* ========== 가격 섹션 ========== */
+        .pricing-section {
+            background: white;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 3px solid #e2e8f0;
+            border-radius: 25px;
+            padding: 45px 35px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            border-color: #667eea;
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.1);
+        }
+
+        .badge {
+            background: #ffd700;
+            color: #333;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .plan-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .price-period {
+            font-size: 0.5em;
+            opacity: 0.8;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pricing-card ul li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .pricing-card.featured ul li {
+            border-bottom-color: rgba(255,255,255,0.2);
+        }
+
+        .pricing-card ul li::before {
+            content: '✓ ';
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .pricing-card.featured ul li::before {
+            color: #ffd700;
+        }
+
+        /* ========== FAQ 섹션 ========== */
+        .faq-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .faq-question {
+            padding: 25px 30px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2d3748;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #f5f7fa;
+            color: #667eea;
+        }
+
+        .faq-question::after {
+            content: '❓';
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(180deg);
+            content: '✅';
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            padding: 0 30px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 30px 25px;
+        }
+
+        /* ========== CTA 최종 섹션 ========== */
+        .final-cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .final-cta-section h2 {
+            font-size: 2.8em;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .final-cta-section p {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-cta-buttons {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .final-cta-buttons .cta-button {
+            font-size: 1.2em;
+            padding: 20px 50px;
+        }
+
+        /* ========== 푸터 ========== */
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 50px 20px 30px;
+            text-align: center;
+        }
+
+        .footer-content h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .footer-content p {
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 20px;
+            opacity: 0.7;
+            font-size: 0.9em;
+        }
+
+        /* 맨 위로 버튼 */
+        #scrollTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        #scrollTop:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        /* ========== 반응형 디자인 ========== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1em;
+            }
+
+            .section-title {
+                font-size: 2em;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .steps-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .arrow {
+                transform: rotate(90deg);
+                margin: 20px 0;
+            }
+
+            .modal-content {
+                margin: 10% 20px;
+                padding: 30px 25px;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            #scrollTop {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .services-grid,
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- 히어로 섹션 -->
+    <section class="hero">
+        <div class="hero-content container">
+            <div>
+                <span class="emoji-decoration">🎨</span>
+                <span class="emoji-decoration">👗</span>
+                <span class="emoji-decoration">🤖</span>
+                <span class="emoji-decoration">✨</span>
+            </div>
+            <h1>AI 디지털 패션 스타일리스트</h1>
+            <p class="subtitle">AI를 활용한 3D 의상 제작 및 가상 인플루언서 스타일링</p>
+            <p class="description">디자인 지식이 없어도 괜찮습니다. 당신의 버츄얼 아바타를 위한 완벽한 스타일을 AI가 제작해드립니다. 가상현실 속 나만의 개성을 표현하세요!</p>
+            <div class="cta-buttons">
+                <a href="#services" class="cta-button">서비스 소개 보기</a>
+                <a href="https://forms.gle/YOUR_FORM_LINK" target="_blank" class="cta-button secondary">무료 상담 신청</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 문제 제시 섹션 -->
+    <section class="problem-section">
+        <div class="container">
+            <h2 class="section-title">왜 AI 디지털 패션 스타일리스트가 필요한가요? 🤔</h2>
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <span class="problem-icon">😰</span>
+                    <h3>디자인 지식 부족</h3>
+                    <p>3D 모델링이나 패션 디자인을 배운 적이 없어서 버튜버 활동을 시작하기 어렵습니다. 전문적인 의상을 만들고 싶지만 어디서부터 시작해야 할지 막막합니다.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="problem-icon">💸</span>
+                    <h3>높은 제작 비용</h3>
+                    <p>전문 디자이너에게 의뢰하면 비용이 너무 비싸고, 시간도 오래 걸립니다. 초보 버튜버에게는 큰 부담이 되는 초기 투자 비용입니다.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="problem-icon">⏰</span>
+                    <h3>복잡한 제작 과정</h3>
+                    <p>가상현실 플랫폼마다 다른 파일 형식, 복잡한 툴 사용법, 리깅과 텍스처 작업까지... 모든 과정이 초보자에게는 너무 복잡하고 어렵습니다.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="problem-icon">🎭</span>
+                    <h3>개성 표현의 어려움</h3>
+                    <p>기존 템플릿은 천편일률적이고, 나만의 독특한 스타일을 표현하기 어렵습니다. 다른 버튜버들과 차별화된 캐릭터를 만들고 싶습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 솔루션 섹션 -->
+    <section class="solution-section">
+        <div class="container">
+            <h2 class="section-title">AI 디지털 패션 스타일리스트의 해결책 💡</h2>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <span class="solution-icon">🎨</span>
+                    <h3>AI 기반 맞춤 디자인</h3>
+                    <p>당신이 원하는 스타일, 컨셉, 색상만 알려주세요. 최신 AI 기술이 전문가 수준의 3D 의상을 자동으로 생성해드립니다. 디자인 지식이 전혀 없어도 몇 분 만에 완성됩니다.</p>
+                </div>
+                <div class="solution-card">
+                    <span class="solution-icon">⚡</span>
+                    <h3>빠르고 간편한 제작</h3>
+                    <p>복잡한 3D 모델링 툴을 배울 필요 없습니다. 간단한 설문과 선호도 선택만으로 몇 시간 내에 완성된 의상을 받아보세요. 수정도 실시간으로 가능합니다.</p>
+                </div>
+                <div class="solution-card">
+                    <span class="solution-icon">✨</span>
+                    <h3>합리적인 가격과 퀄리티</h3>
+                    <p>AI 자동화 시스템으로 전문가 수준의 퀄리티를 합리적인 가격에 제공합니다. 초보 버튜버도 부담 없이 시작할 수 있는 가격대로, 다양한 스타일을 제작해보세요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 서비스 소개 섹션 -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <h2 class="section-title">제공 서비스 🎁</h2>
+            <div class="services-grid">
+                
+                <!-- 서비스 1 -->
+                <div class="service-card" onclick="openModal('modal1')">
+                    <span class="service-icon">👔</span>
+                    <h3>커스텀 3D 의상 제작</h3>
+                    <p class="short-desc">AI가 당신의 취향을 분석하여 맞춤형 3D 의상을 디자인하고 제작합니다.</p>
+                    <button class="detail-button">자세히 보기</button>
+                </div>
+
+                <!-- 서비스 2 -->
+                <div class="service-card" onclick="openModal('modal2')">
+                    <span class="service-icon">🎨</span>
+                    <h3>스타일 컨설팅</h3>
+                    <p class="short-desc">당신의 콘셉트에 맞는 최적의 패션 스타일을 AI가 추천해드립니다.</p>
+                    <button class="detail-button">자세히 보기</button>
+                </div>
+
+                <!-- 서비스 3 -->
+                <div class="service-card" onclick="openModal('modal3')">
+                    <span class="service-icon">🌟</span>
+                    <h3>아바타 풀 스타일링</h3>
+                    <p class="short-desc">의상부터 헤어, 액세서리까지 토탈 코디네이션 서비스를 제공합니다.</p>
+                    <button class="detail-button">자세히 보기</button>
+                </div>
+
+                <!-- 서비스 4 -->
+                <div class="service-card" onclick="openModal('modal4')">
+                    <span class="service-icon">🔄</span>
+                    <h3>의상 수정 & 업그레이드</h3>
+                    <p class="short-desc">기존 의상을 새로운 스타일로 리뉴얼하거나 디테일을 추가합니다.</p>
+                    <button class="detail-button">자세히 보기</button>
+                </div>
+
+                <!-- 서비스 5 -->
+                <div class="service-card" onclick="openModal('modal5')">
+                    <span class="service-icon">🎭</span>
+                    <h3>테마별 의상 패키지</h3>
+                    <p class="short-desc">시즌, 이벤트, 콘셉트에 맞는 다양한 테마 의상 세트를 제공합니다.</p>
+                    <button class="detail-button">자세히 보기</button>
+                </div>
+
+                <!-- 서비스 6 -->
+                <div class="service-card" onclick="openModal('modal6')">
+                    <span class="service-icon">💼</span>
+                    <h3>브랜드 협업 디자인</h3>
+                    <p class="short-desc">실제 브랜드와 협업한 버츄얼 패션 아이템을 제작해드립니다.</p>
+                    <button class="detail-button">자세히 보기</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 모달 1: 커스텀 3D 의상 제작 -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal1')">&times;</span>
+            <h2>👔 커스텀 3D 의상 제작</h2>
+            <p class="overview">당신만의 독특한 스타일을 AI 기술로 구현합니다. 원하는 디자인, 색상, 소재, 디테일을 설명하시면 전문가 수준의 3D 의상을 제작해드립니다.</p>
+            
+            <h4>포함 내용</h4>
+            <ul>
+                <li>1:1 스타일 상담 및 콘셉트 기획</li>
+                <li>AI 기반 디자인 초안 3종 제시</li>
+                <li>선택한 디자인의 고퀄리티 3D 모델링</li>
+                <li>텍스처 및 재질 작업 (PBR 텍스처)</li>
+                <li>주요 가상현실 플랫폼 호환 파일 제공 (VRM, FBX)</li>
+                <li>2회 무료 수정 기회</li>
+                <li>착용 가이드 및 기술 지원</li>
+            </ul>
+            
+            <div class="meta-info">
+                <p><strong>예상 소요 시간:</strong> 3-5일</p>
+                <p><strong>가격대:</strong> 150,000원 ~ 300,000원</p>
+                <p><strong>최종 파일 형식:</strong> VRM, FBX, OBJ, 텍스처 맵 포함</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 2: 스타일 컨설팅 -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal2')">&times;</span>
+            <h2>🎨 스타일 컨설팅</h2>
+            <p class="overview">어떤 스타일이 나에게 어울릴지 고민이신가요? AI 패션 전문가가 당신의 콘셉트, 방송 주제, 타겟 시청자를 분석하여 최적의 패션 스타일을 제안합니다.</p>
+            
+            <h4>포함 내용</h4>
+            <ul>
+                <li>심층 콘셉트 분석 설문 및 인터뷰</li>
+                <li>AI 기반 스타일 트렌드 분석</li>
+                <li>맞춤형 스타일 제안서 (5종 이상)</li>
+                <li>각 스타일별 무드보드 및 컬러 팔레트</li>
+                <li>추천 의상 디자인 스케치</li>
+                <li>스타일링 가이드북 (PDF)</li>
+                <li>30일간 추가 상담 지원</li>
+            </ul>
+            
+            <div class="meta-info">
+                <p><strong>예상 소요 시간:</strong> 2-3일</p>
+                <p><strong>가격대:</strong> 80,000원 ~ 120,000원</p>
+                <p><strong>후속 서비스:</strong> 제작 서비스 이용 시 20% 할인</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 3: 아바타 풀 스타일링 -->
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal3')">&times;</span>
+            <h2>🌟 아바타 풀 스타일링</h2>
+            <p class="overview">의상만으로는 부족하다고 느끼시나요? 헤어스타일, 액세서리, 메이크업, 신발까지 완벽한 토탈 룩을 제공하는 프리미엄 서비스입니다.</p>
+            
+            <h4>포함 내용</h4>
+            <ul>
+                <li>커스텀 3D 의상 제작 (상의 + 하의 or 원피스)</li>
+                <li>헤어스타일 디자인 및 제작</li>
+                <li>액세서리 3종 (귀걸이, 목걸이, 모자 등)</li>
+                <li>신발 또는 부츠 디자인</li>
+                <li>특수 이펙트 또는 파티클 효과 추가 가능</li>
+                <li>메이크업 텍스처 커스터마이징</li>
+                <li>전체 룩북 및 코디 가이드</li>
+                <li>3회 무료 수정 기회</li>
+            </ul>
+            
+            <div class="meta-info">
+                <p><strong>예상 소요 시간:</strong> 7-10일</p>
+                <p><strong>가격대:</strong> 450,000원 ~ 800,000원</p>
+                <p><strong>추가 혜택:</strong> 이후 신규 의상 제작 시 30% 할인</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 4: 의상 수정 & 업그레이드 -->
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal4')">&times;</span>
+            <h2>🔄 의상 수정 & 업그레이드</h2>
+            <p class="overview">기존에 사용하던 의상이 지루하거나 개선이 필요하신가요? 이미 가지고 있는 3D 의상을 리뉴얼하거나 새로운 요소를 추가해드립니다.</p>
+            
+            <h4>포함 내용</h4>
+            <ul>
+                <li>기존 의상 파일 분석 및 문제점 진단</li>
+                <li>색상, 패턴, 소재 변경</li>
+                <li>디테일 추가 (자수, 프린트, 장식 등)</li>
+                <li>최신 텍스처 기법 적용 (PBR)</li>
+                <li>애니메이션 최적화</li>
+                <li>플랫폼별 호환성 개선</li>
+                <li>버전 업그레이드 (Low poly → High poly)</li>
+            </ul>
+            
+            <div class="meta-info">
+                <p><strong>예상 소요 시간:</strong> 2-4일</p>
+                <p><strong>가격대:</strong> 50,000원 ~ 150,000원 (수정 범위에 따라)</p>
+                <p><strong>필요 사항:</strong> 기존 의상 파일 (.vrm, .fbx 등)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 5: 테마별 의상 패키지 -->
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal5')">&times;</span>
+            <h2>🎭 테마별 의상 패키지</h2>
+            <p class="overview">다양한 콘텐츠 제작에 필요한 여러 벌의 의상을 한 번에! 특정 테마나 시즌에 맞춘 의상 세트를 패키지로 제공합니다.</p>
+            
+            <h4>포함 내용</h4>
+            <ul>
+                <li>선택한 테마의 의상 5벌 세트</li>
+                <li>각 의상별 코디 가이드</li>
+                <li>통일된 디자인 컨셉과 컬러 팔레트</li>
+                <li>매칭 액세서리 포함</li>
+                <li>시즌별 업데이트 옵션</li>
+                <li>테마: 판타지, 미래형, 캐주얼, 포멀, 스포츠, 계절 등</li>
+                <li>패키지 전용 특별 가격</li>
+            </ul>
+            
+            <div class="meta-info">
+                <p><strong>예상 소요 시간:</strong> 10-14일</p>
+                <p><strong>가격대:</strong> 500,000원 ~ 1,000,000원</p>
+                <p><strong>할인 혜택:</strong> 개별 구매 대비 40% 할인</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 6: 브랜드 협업 디자인 -->
+    <div id="modal6" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal6')">&times;</span>
+            <h2>💼 브랜드 협업 디자인</h2>
+            <p class="overview">실제 패션 브랜드나 기업과의 협업을 통해 버츄얼 세계에서도 브랜드 가치를 표현할 수 있습니다. 공식 라이선스 제품을 가상 패션으로 구현합니다.</p>
+            
+            <h4>포함 내용</h4>
+            <ul>
+                <li>브랜드 아이덴티티 분석 및 적용</li>
+                <li>공식 로고 및 디자인 라이선스 처리</li>
+                <li>브랜드 대표 제품의 3D 버전 제작</li>
+                <li>브랜드 컬러 및 무드 정확한 재현</li>
+                <li>협업 인증서 발급</li>
+                <li>SNS 홍보용 렌더링 이미지 제공</li>
+                <li>독점 사용 옵션 가능</li>
+            </ul>
+            
+            <div class="meta-info">
+                <p><strong>예상 소요 시간:</strong> 협의 후 결정 (평균 14-21일)</p>
+                <p><strong>가격대:</strong> 별도 협의 (라이선스 비용 포함)</p>
+                <p><strong>상담 문의:</strong> 브랜드 협업 전용 상담 필요</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 작동 방식 섹션 -->
+    <section class="how-it-works-section">
+        <div class="container">
+            <h2 class="section-title">이용 방법 📋</h2>
+            <div class="steps-container">
+                
+                <div class="step">
+                    <span class="step-number"1️⃣</span>
+                    <h3>상담 신청</h3>
+                    <p>간단한 폼 작성으로 무료 상담을 신청하세요. 원하는 스타일과 콘셉트를 자유롭게 설명해주세요.</p>
+                </div>
+
+                <span class="arrow">→</span>
+
+                <div class="step">
+                    <span class="step-number">2️⃣</span>
+                    <h3>AI 디자인 제안</h3>
+                    <p>AI가 당신의 요구사항을 분석하여 맞춤형 디자인 초안을 2-3가지 제시합니다. 마음에 드는 디자인을 선택하세요.</p>
+                </div>
+
+                <span class="arrow">→</span>
+
+                <div class="step">
+                    <span class="step-number">3️⃣</span>
+                    <h3>제작 및 수정</h3>
+                    <p>선택한 디자인을 고품질 3D 모델로 제작합니다. 중간 확인 과정에서 피드백을 주시면 반영해드립니다.</p>
+                </div>
+
+                <span class="arrow">→</span>
+
+                <div class="step">
+                    <span class="step-number">4️⃣</span>
+                    <h3>완성 및 전달</h3>
+                    <p>최종 검수 후 플랫폼별 호환 파일로 전달해드립니다. 사용 가이드와 기술 지원도 함께 제공됩니다.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 특장점 섹션 -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">왜 AI 디지털 패션 스타일리스트를 선택해야 하나요? ⭐</h2>
+            <div class="features-grid">
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🚀</span>
+                    <h3>빠른 제작 속도</h3>
+                    <p>AI 기술로 일반적으로 2-3주 걸리는 작업을 3-5일 만에 완성합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">💰</span>
+                    <h3>합리적인 가격</h3>
+                    <p>전통적인 3D 제작 비용의 50-70% 수준으로 프리미엄 퀄리티를 제공합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>맞춤형 서비스</h3>
+                    <p>대량 생산 템플릿이 아닌, 오직 당신만을 위한 100% 커스터마이징 디자인입니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🔧</span>
+                    <h3>다양한 플랫폼 지원</h3>
+                    <p>VRChat, VTuber Studio, Cluster 등 주요 플랫폼 모두 호환 가능한 파일을 제공합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">✨</span>
+                    <h3>전문가 퀄리티</h3>
+                    <p>AI 자동화에 전문 디자이너의 감수가 더해져 완벽한 마무리를 보장합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🤝</span>
+                    <h3>지속적인 지원</h3>
+                    <p>제작 후에도 착용 문제, 호환성 이슈 등을 1개월간 무료로 지원해드립니다.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 가격 섹션 -->
+    <section class="pricing-section">
+        <div class="container">
+            <h2 class="section-title">가격 안내 💎</h2>
+            <div class="pricing-grid">
+                
+                <div class="pricing-card">
+                    <span class="plan-icon">🌱</span>
+                    <h3>스타터 플랜</h3>
+                    <div class="price">150,000원<span class="price-period">/의상 1벌</span></div>
+                    <ul>
+                        <li>✓ 기본 3D 의상 1벌</li>
+                        <li>✓ AI 디자인 초안 2종</li>
+                        <li>✓ 1회 무료 수정</li>
+                        <li>✓ 기본 텍스처 작업</li>
+                        <li>✓ VRM 파일 제공</li>
+                        <li>✓ 제작 기간: 3-5일</li>
+                    </ul>
+                    <a href="https://forms.gle/YOUR_FORM_LINK" target="_blank" class="cta-button">시작하기</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <span class="badge">인기 ⭐</span>
+                    <span class="plan-icon">🚀</span>
+                    <h3>프로 플랜</h3>
+                    <div class="price">400,000원<span class="price-period">/풀 스타일링</span></div>
+                    <ul>
+                        <li>✓ 토탈 룩 (의상 + 헤어 + 액세서리)</li>
+                        <li>✓ AI 디자인 초안 3종</li>
+                        <li>✓ 3회 무료 수정</li>
+                        <li>✓ 프리미엄 PBR 텍스처</li>
+                        <li>✓ 다중 플랫폼 파일 제공</li>
+                        <li>✓ 특수 이펙트 추가</li>
+                        <li>✓ 제작 기간: 7-10일</li>
+                        <li>✓ 1개월 기술 지원</li>
+                    </ul>
+                    <a href="https://forms.gle/YOUR_FORM_LINK" target="_blank" class="cta-button">인기 플랜 선택</a>
+                </div>
+
+                <div class="pricing-card">
+                    <span class="plan-icon">👑</span>
+                    <h3>프리미엄 플랜</h3>
+                    <div class="price">별도 협의<span class="price-period">/맞춤 패키지</span></div>
+                    <ul>
+                        <li>✓ 테마별 의상 5벌 이상</li>
+                        <li>✓ 무제한 디자인 초안</li>
+                        <li>✓ 무제한 수정</li>
+                        <li>✓ 브랜드 협업 가능</li>
+                        <li>✓ 전용 디자이너 배정</li>
+                        <li>✓ 우선 제작 서비스</li>
+                        <li>✓ 독점 디자인 보장</li>
+                        <li>✓ 3개월 기술 지원</li>
+                    </ul>
+                    <a href="https://forms.gle/YOUR_FORM_LINK" target="_blank" class="cta-button">상담 신청</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ 섹션 -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">자주 묻는 질문 ❓</h2>
+            <div class="faq-container">
+                
+                <div class="faq-item">
+                    <div class="faq-question">3D 모델링을 전혀 모르는데 가능한가요?</div>
+                    <div class="faq-answer">
+                        네, 전혀 문제없습니다! 저희 서비스는 3D 지식이 전혀 없는 분들을 위해 만들어졌습니다. 원하는 스타일을 말로 설명하거나 참고 이미지만 주시면, AI가 모든 기술적인 부분을 처리합니다. 간단한 설문과 선호도 선택만으로 전문가급 결과물을 받으실 수 있습니다.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">어떤 가상현실 플랫폼을 지원하나요?</div>
+                    <div class="faq-answer">
+                        VRChat, VTuber Studio, Cluster, NeosVR, ChilloutVR 등 주요 플랫폼을 모두 지원합니다. 기본적으로 VRM 형식을 제공하며, 필요시 FBX, OBJ 등 다양한 포맷으로 변환해드립니다. 특정 플랫폼에 대한 최적화도 가능하니 상담 시 말씀해주세요.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">제작 기간은 얼마나 걸리나요?</div>
+                    <div class="faq-answer">
+                        기본 의상 제작은 3-5일, 풀 스타일링은 7-10일 정도 소요됩니다. 급한 경우 긴급 제작 옵션(추가 비용 30%)을 이용하시면 제작 기간을 절반으로 단축할 수 있습니다. 패키지 상품이나 브랜드 협업은 별도 협의가 필요합니다.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">수정이나 변경이 가능한가요?</div>
+                    <div class="faq-answer">
+                        모든 플랜에 무료 수정 기회가 포함되어 있습니다. 스타터 플랜은 1회, 프로 플랜은 3회, 프리미엄 플랜은 무제한 수정이 가능합니다. 중간 확인 과정에서 피드백을 주시면 즉시 반영해드리며, 완성 후에도 수정 가능 횟수 내에서 변경하실 수 있습니다.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">저작권은 누구에게 있나요?</div>
+                    <div class="faq-answer">
+                        제작된 모든 디자인의 저작권은 고객님께 귀속됩니다. 상업적 사용, 2차 창작, 수정 등 자유롭게 활용하실 수 있습니다. 단, 브랜드 협업 상품의 경우 해당 브랜드의 라이선스 정책을 따라야 하며, 저희는 포트폴리오 용도로만 사용합니다(원치 않으시면 비공개 처리 가능).
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">환불 정책은 어떻게 되나요?</div>
+                    <div class="faq-answer">
+                        디자인 초안 제시 전까지는 100% 환불 가능합니다. 초안 확인 후 제작이 시작되면 50% 환불, 최종 파일 전달 후에는 환불이 어렵습니다. 다만 기술적 하자나 플랫폼
